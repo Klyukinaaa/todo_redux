@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ItemsList from '../ItemsList';
 import InputForm from '../InputForm';
 import ItemsService from '../../services/ItemsService';
+import NotificationService from '../../screens/service';
 
 function Container() {
   const [colors, setColors] = useState([
@@ -45,9 +46,9 @@ function Container() {
     async function requestItems() {
       try {
         const tasks = await ItemsService.getItems();
-        setItems(tasks);
+        setItems(tasks.data);
       } catch (e) {
-        console.log(e);
+        NotificationService.error(e.response.data.message);
       }
     }
     requestItems();
@@ -66,9 +67,9 @@ function Container() {
         color: getItemsColor(),
       };
       const data = await ItemsService.createItem(item);
-      setItems([...items, data]);
+      setItems([...items, data.data]);
     } catch (e) {
-      console.log(e);
+      NotificationService.error(e.response.data.message);
     }
   }
 
@@ -81,7 +82,7 @@ function Container() {
       await ItemsService.patchItem(id, item);
       setItems([...items]);
     } catch (e) {
-      console.log(e);
+      NotificationService.error(e.response.data.message);
     }
   }
 
@@ -94,7 +95,7 @@ function Container() {
       await ItemsService.patchItem(id, item);
       setItems([...items]);
     } catch (e) {
-      console.log(e);
+      NotificationService.error(e.response.data.message);
     }
   }
 
@@ -104,7 +105,7 @@ function Container() {
       const newItems = items.filter((item) => item.id !== id);
       setItems(newItems);
     } catch (e) {
-      console.log(e);
+      NotificationService.error(e.response.data.message);
     }
   }
 
@@ -139,7 +140,7 @@ function Container() {
           color: '',
         });
       } catch (e) {
-        console.log(e);
+        NotificationService.error(e.response.data.message);
       }
     }
   }

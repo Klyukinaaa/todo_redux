@@ -10,11 +10,7 @@ class ItemsService {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-    })
-      .then((res) => res.data)
-      .catch((err) => {
-        console.log(err);
-      });
+    });
   }
 
   static patchItem(id, item) {
@@ -25,11 +21,7 @@ class ItemsService {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-    })
-      .then((res) => res.data)
-      .catch((err) => {
-        console.log(err);
-      });
+    });
   }
 
   static deleteItem(id) {
@@ -45,11 +37,7 @@ class ItemsService {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-    })
-      .then((res) => res.data)
-      .catch((err) => {
-        console.log(err);
-      });
+    });
   }
 }
 
