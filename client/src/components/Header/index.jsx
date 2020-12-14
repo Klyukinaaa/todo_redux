@@ -6,7 +6,7 @@ import './styles.css';
 
 function Header() {
   const history = useHistory();
-  const auth = useSelector((state) => state.auth.token);
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
 
   function logout() {
@@ -38,7 +38,7 @@ function Header() {
     </div>
   );
 
-  return auth !== null ? <HeaderForAuthenticated /> : <AuthHeader />;
+  return token !== null ? <HeaderForAuthenticated /> : <AuthHeader />;
 }
 
 export default Header;

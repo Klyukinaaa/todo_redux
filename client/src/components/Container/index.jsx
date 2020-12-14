@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import ItemsList from '../ItemsList';
 import InputForm from '../InputForm';
 import ItemsService from '../../services/ItemsService';
 import NotificationService from '../../screens/service';
 
 function Container() {
+  const token = useSelector((state) => state.auth.token);
+  const itemsService = new ItemsService(token);
   const [colors, setColors] = useState([
     {
       backgroundColor: '#ef666c',
@@ -45,10 +48,11 @@ function Container() {
   useEffect(() => {
     async function requestItems() {
       try {
-        const tasks = await ItemsService.getItems();
+        const tasks = await itemsService.getItems();
         setItems(tasks.data);
       } catch (e) {
-        NotificationService.error(e.response.data.message);
+        const message = 'Not Found ';
+        NotificationService.error(message);
       }
     }
     requestItems();
@@ -66,10 +70,11 @@ function Container() {
         ...currentItem,
         color: getItemsColor(),
       };
-      const data = await ItemsService.createItem(item);
+      const data = await itemsService.createItem(item);
       setItems([...items, data.data]);
     } catch (e) {
-      NotificationService.error(e.response.data.message);
+      const message = 'Not Found ';
+      NotificationService.error(message);
     }
   }
 
@@ -79,10 +84,11 @@ function Container() {
       if (item) {
         item.completed = !item.completed;
       }
-      await ItemsService.patchItem(id, item);
+      await itemsService.patchItem(id, item);
       setItems([...items]);
     } catch (e) {
-      NotificationService.error(e.response.data.message);
+      const message = 'Not Found ';
+      NotificationService.error(message);
     }
   }
 
@@ -92,20 +98,22 @@ function Container() {
       if (item) {
         item.task = event.target.value;
       }
-      await ItemsService.patchItem(id, item);
+      await itemsService.patchItem(id, item);
       setItems([...items]);
     } catch (e) {
-      NotificationService.error(e.response.data.message);
+      const message = 'Not Found ';
+      NotificationService.error(message);
     }
   }
 
   async function deleteItem(id) {
     try {
-      await ItemsService.deleteItem(id);
+      await itemsService.deleteItem(id);
       const newItems = items.filter((item) => item.id !== id);
       setItems(newItems);
     } catch (e) {
-      NotificationService.error(e.response.data.message);
+      const message = 'Not Found ';
+      NotificationService.error(message);
     }
   }
 
@@ -140,7 +148,8 @@ function Container() {
           color: '',
         });
       } catch (e) {
-        NotificationService.error(e.response.data.message);
+        const message = 'Not Found ';
+        NotificationService.error(message);
       }
     }
   }

@@ -1,41 +1,45 @@
 import axios from 'axios';
 
 class ItemsService {
-  static createItem(item) {
+  constructor(token) {
+    this.token = token;
+  }
+
+  createItem(item) {
     return axios.post('/items/', {
       task: item.task,
       completed: item.completed,
       color: item.color,
     }, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${this.token}`,
       },
     });
   }
 
-  static patchItem(id, item) {
+  patchItem(id, item) {
     return axios.patch(`/items/${id}`, {
       task: item.task,
       completed: item.completed,
     }, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${this.token}`,
       },
     });
   }
 
-  static deleteItem(id) {
+  deleteItem(id) {
     return axios.delete(`/items/${id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${this.token}`,
       },
     });
   }
 
-  static getItems() {
+  getItems() {
     return axios.get('/items/', {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${this.token}`,
       },
     });
   }
