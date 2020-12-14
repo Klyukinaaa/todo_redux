@@ -1,16 +1,18 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { logoff } from '../../redux/actions';
 import './styles.css';
-import { useSelector } from 'react-redux';
 
 function Header() {
   const history = useHistory();
-  const auth = useSelector((state) => state.auth.auth);
+  const auth = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
 
   function logout() {
-    history.push('/auth/login');
     localStorage.removeItem('token');
+    dispatch(logoff());
+    history.push('/auth/login');
   }
 
   const HeaderForAuthenticated = () => (
@@ -36,7 +38,7 @@ function Header() {
     </div>
   );
 
-  return auth ? <HeaderForAuthenticated /> : <AuthHeader />;
+  return auth !== null ? <HeaderForAuthenticated /> : <AuthHeader />;
 }
 
 export default Header;

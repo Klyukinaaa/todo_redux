@@ -1,13 +1,15 @@
-import IS_AUTH from './types';
+import { LOGIN, LOGOUT } from './types';
 
 const initialState = {
-  auth: false,
+  token: null,
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case IS_AUTH:
-      return { ...state, auth: action.payload };
+    case LOGIN:
+      return { token: action.payload };
+    case LOGOUT:
+      return { token: null };
     default: return state;
   }
 };

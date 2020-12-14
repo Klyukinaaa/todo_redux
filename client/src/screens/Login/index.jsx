@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import AuthService from '../../services/AuthSerice';
 import NotificationService from '../service';
-import isAuth from '../../redux/actions';
+import { login } from '../../redux/actions';
 
 import './styles.css';
 
@@ -24,16 +24,14 @@ function Login() {
   }
 
   async function signIn() {
-    const data = await AuthService.signIn(email, password);
     try {
-      if (data) {
-        NotificationService.error(data);
-      } else {
-        dispatch(isAuth());
-        history.push('/items');
-      }
+      const response = await AuthService.signIn(email, password);
+      const { token } = response.data;
+      dispatch(login(token));
+      localStorage.setItem('token', token);
+      history.push('/items');
     } catch (e) {
-      console.log(e);
+      NotificationService.error(e.response.data.message);
     }
   }
 

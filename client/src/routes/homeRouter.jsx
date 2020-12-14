@@ -3,8 +3,8 @@ import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const HomeRoute = () => {
-  const auth = useSelector((state) => state.auth.auth);
-  if (auth) {
+  const auth = useSelector((state) => state.auth.token);
+  if (auth != null) {
     return (
       <Redirect to="/items" />
     );

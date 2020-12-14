@@ -27,20 +27,16 @@ function Register() {
 
   async function signUp() {
     if (password === repeatPassword) {
-      const data = await AuthService.signUp(email, password);
       try {
-        if (data) {
-          NotificationService.error(data);
-        } else {
-          const message = 'Successful registration!';
-          NotificationService.success(message);
-          history.push('/auth/login');
-        }
+        await AuthService.signUp(email, password);
+        const message = 'Successful registration!';
+        NotificationService.success(message);
+        history.push('/auth/login');
       } catch (e) {
-        console.log(e);
+        NotificationService.error(e.response.data.message);
       }
     } else {
-      const message = 'Passwords do not match!!';
+      const message = 'Passwords do not match!';
       NotificationService.error(message);
     }
   }

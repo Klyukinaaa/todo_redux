@@ -1,22 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Container from './components/Container';
 import AuthRouter from './routes/authRouter';
 import PrivateRoute from './routes/secureRoutes';
 import Header from './components/Header';
 import HomeRoute from './routes/homeRouter';
-import isAuth from './redux/actions';
+import { login } from './redux/actions';
 
 function MainRouter() {
-  useSelector((state) => state.auth.auth);
   const dispatch = useDispatch();
-  const token = localStorage.getItem('token');
-  if (token !== null) {
-    dispatch(isAuth());
-  }
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    dispatch(login(token));
+  }, []);
   return (
     <div>
       <Header />

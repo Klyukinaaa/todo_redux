@@ -1,10 +1,14 @@
-import IS_AUTH from './types';
+import { LOGIN, LOGOUT } from './types';
 
-function isAuth() {
+export function login(token) {
   return {
-    type: IS_AUTH,
-    payload: true,
+    type: LOGIN,
+    payload: token,
   };
 }
 
-export default isAuth;
+export function logoff() {
+  return {
+    type: LOGOUT,
+  };
+}

@@ -1,3 +1,2 @@
-const IS_AUTH = 'IS_AUTH';
-
-export default IS_AUTH;
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';

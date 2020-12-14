@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const auth = useSelector((state) => state.auth.auth);
+  const auth = useSelector((state) => state.auth.token);
   return (
     <Route
       {...rest}
       exact
       render={(props) => (
-        auth ? <Component {...props} />
+        auth !== null ? <Component {...props} />
           : <Redirect to="/auth/login" />
       )}
     />
