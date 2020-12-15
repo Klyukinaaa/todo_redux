@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoff } from '../../redux/actions';
+import { signOut } from '../../redux/actions';
 import './styles.css';
 
 function Header() {
@@ -11,7 +11,7 @@ function Header() {
 
   function logout() {
     localStorage.removeItem('token');
-    dispatch(logoff());
+    dispatch(signOut());
     history.push('/auth/login');
   }
 

@@ -9,8 +9,6 @@ function InputForm(props) {
     handleSubmit,
     inputValue,
     onChange,
-    colors,
-    handleClickColor,
   } = props;
   return (
     <form id="text" onSubmit={handleSubmit}>
@@ -25,10 +23,7 @@ function InputForm(props) {
           placeholder="Add New Item"
         />
       </label>
-      <ColorBtns
-        colors={colors}
-        handleClickColor={handleClickColor}
-      />
+      <ColorBtns />
     </form>
   );
 }
@@ -37,8 +32,6 @@ InputForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   inputValue: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  colors: PropTypes.instanceOf(Array).isRequired,
-  handleClickColor: PropTypes.func.isRequired,
 };
 
 export default InputForm;

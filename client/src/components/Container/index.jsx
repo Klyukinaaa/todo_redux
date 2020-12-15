@@ -8,42 +8,14 @@ import NotificationService from '../../screens/service';
 function Container() {
   const token = useSelector((state) => state.auth.token);
   const itemsService = new ItemsService(token);
-  const [colors, setColors] = useState([
-    {
-      backgroundColor: '#ef666c',
-      selected: false,
-    },
-    {
-      backgroundColor: '#f171a2',
-      selected: false,
-    },
-    {
-      backgroundColor: '#8f6ac8',
-      selected: false,
-    },
-    {
-      backgroundColor: '#5eb1f3',
-      selected: false,
-
-    },
-    {
-      backgroundColor: '#68d8e3',
-      selected: false,
-    },
-    {
-      backgroundColor: '#fde087',
-      selected: false,
-
-    },
-  ]);
+  const colors = useSelector((state) => state.items.colors);
+  const [items, setItems] = useState([]);
 
   const [currentItem, setCurrentItem] = useState({
     task: '',
     completed: false,
     color: '',
   });
-
-  const [items, setItems] = useState([]);
 
   useEffect(() => {
     async function requestItems() {
@@ -60,8 +32,8 @@ function Container() {
 
   function getItemsColor() {
     const activeCheckbox = colors.find((item) => item.selected);
-    const randomColors = colors[Math.floor(Math.random() * 6)].backgroundColor;
-    return activeCheckbox ? activeCheckbox.backgroundColor : randomColors;
+    const randomColors = colors[Math.floor(Math.random() * 6)].color;
+    return activeCheckbox ? activeCheckbox.color : randomColors;
   }
 
   async function createItem() {
@@ -117,17 +89,6 @@ function Container() {
     }
   }
 
-  function handleClickColor(i) {
-    const newColors = [...colors];
-    setColors(newColors.map((item, index) => {
-      const newItem = item;
-      if (i === index) {
-        newItem.selected = !newItem.selected;
-      } else newItem.selected = i === index;
-      return newItem;
-    }));
-  }
-
   function handleTextInputChange(event) {
     setCurrentItem({
       task: event.target.value,
@@ -169,8 +130,6 @@ function Container() {
             handleSubmit={handleSubmit}
             inputValue={currentItem.task}
             onChange={handleTextInputChange}
-            colors={colors}
-            handleClickColor={handleClickColor}
           />
         </div>
       </div>

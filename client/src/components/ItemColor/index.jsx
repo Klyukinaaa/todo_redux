@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { useDispatch } from 'react-redux';
+import { activate } from '../../redux/actions';
 import './styles.css';
 
 function ItemColor(props) {
+  const dispatch = useDispatch();
   const {
-    i, item, clickColor, selected,
+    item, selected, color,
   } = props;
   return (
-    <span role="presentation" className={`btn ${selected ? 'active' : ' '}`} onClick={() => clickColor(i)}>
-      <input className="button" type="button" style={{ backgroundColor: item.backgroundColor }} />
+    <span role="presentation" className={`btn ${selected ? 'active' : ' '}`} onClick={() => dispatch(activate(color))}>
+      <input className="button" type="button" style={{ backgroundColor: item.color }} />
     </span>
   );
 }
 
 ItemColor.propTypes = {
-  i: PropTypes.number.isRequired,
   item: PropTypes.oneOfType([PropTypes.object]).isRequired,
-  clickColor: PropTypes.func.isRequired,
   selected: PropTypes.bool.isRequired,
+  color: PropTypes.string.isRequired,
 };
 
 export default ItemColor;

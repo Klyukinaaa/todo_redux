@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from './types';
+import { LOGIN, LOGOUT, ACTIVE } from './types';
 
 export function login(token) {
   return {
@@ -7,8 +7,17 @@ export function login(token) {
   };
 }
 
-export function logoff() {
+export function signOut() {
   return {
     type: LOGOUT,
+  };
+}
+
+export function activate(color) {
+  return {
+    type: ACTIVE,
+    payload: {
+      color,
+    },
   };
 }
