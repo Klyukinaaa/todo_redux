@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ItemsList from '../ItemsList';
 import InputForm from '../InputForm';
 import ItemsService from '../../services/ItemsService';
 import NotificationService from '../../screens/service';
-import {
-  checked, create, deleted, update,
-} from '../../redux/actions/actions';
 import useItems from '../../redux/hook/useItems';
 
 function Container() {
   const token = useSelector((state) => state.auth.token);
   const colors = useSelector((state) => state.colors.colors);
   const items = useSelector((state) => state.items.items);
-  const dispatch = useDispatch();
-  const { initializeItems } = useItems();
+  const {
+    initializeItems, updateItem, checkItem, createTask, deleteTask,
+  } = useItems();
   const itemsService = new ItemsService(token);
 
   const [currentItem, setCurrentItem] = useState({
@@ -49,7 +47,7 @@ function Container() {
         color: getItemsColor(),
       };
       const data = await itemsService.createItem(item);
-      dispatch(create(data.data));
+      createTask(data.data);
     } catch (e) {
       const message = 'Not Found';
       NotificationService.error(message);
@@ -58,7 +56,7 @@ function Container() {
 
   async function handleCheck(id) {
     try {
-      dispatch(checked(id));
+      checkItem(id);
       const item = items.find((el) => el.id === id);
       await itemsService.patchItem(id, item);
     } catch (e) {
@@ -70,7 +68,7 @@ function Container() {
   async function handleText(id, event) {
     try {
       const text = event.target.value;
-      dispatch(update(id, text));
+      updateItem(id, text);
       const item = items.find((el) => el.id === id);
       await itemsService.patchItem(id, item);
     } catch (e) {
@@ -82,7 +80,7 @@ function Container() {
   async function deleteItem(id) {
     try {
       await itemsService.deleteItem(id);
-      dispatch(deleted(id));
+      deleteTask(id);
     } catch (e) {
       const message = 'Not Found ';
       NotificationService.error(message);
