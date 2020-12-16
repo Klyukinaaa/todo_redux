@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import AuthService from '../../services/AuthSerice';
 import NotificationService from '../service';
-import { login } from '../../redux/actions';
+import { login } from '../../redux/actions/actions';
 
 import './styles.css';
 

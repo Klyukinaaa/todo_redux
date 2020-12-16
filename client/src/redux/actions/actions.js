@@ -1,6 +1,6 @@
 import {
-  LOGIN, LOGOUT, ACTIVATE, ADD_ITEMS, CREATE_ITEM, CHECKED_ITEM, DELETED_ITEM, UPDATE_ITEM,
-} from './types';
+  LOGIN, LOGOUT, ACTIVATE, INITIALIZE_ITEMS, CREATE_ITEM, CHECK_ITEM, DELETE_ITEM, UPDATE_ITEM,
+} from '../types/types';
 
 export function login(token) {
   return {
@@ -24,9 +24,9 @@ export function activate(color) {
   };
 }
 
-export function addData(data) {
+export function initialize(data) {
   return {
-    type: ADD_ITEMS,
+    type: INITIALIZE_ITEMS,
     payload: data,
   };
 }
@@ -40,7 +40,7 @@ export function create(data) {
 
 export function checked(id) {
   return {
-    type: CHECKED_ITEM,
+    type: CHECK_ITEM,
     payload: {
       id,
     },
@@ -49,7 +49,7 @@ export function checked(id) {
 
 export function deleted(id) {
   return {
-    type: DELETED_ITEM,
+    type: DELETE_ITEM,
     payload: {
       id,
     },

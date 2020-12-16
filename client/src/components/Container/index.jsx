@@ -5,14 +5,16 @@ import InputForm from '../InputForm';
 import ItemsService from '../../services/ItemsService';
 import NotificationService from '../../screens/service';
 import {
-  addData, checked, create, deleted, update,
-} from '../../redux/actions';
+  checked, create, deleted, update,
+} from '../../redux/actions/actions';
+import useItems from '../../redux/hook/useItems';
 
 function Container() {
   const token = useSelector((state) => state.auth.token);
   const colors = useSelector((state) => state.colors.colors);
   const items = useSelector((state) => state.items.items);
   const dispatch = useDispatch();
+  const { initializeItems } = useItems();
   const itemsService = new ItemsService(token);
 
   const [currentItem, setCurrentItem] = useState({
@@ -25,7 +27,7 @@ function Container() {
     async function requestItems() {
       try {
         const data = await itemsService.getItems();
-        dispatch(addData(data.data));
+        initializeItems(data.data);
       } catch (e) {
         const message = 'Not Found';
         NotificationService.error(message);

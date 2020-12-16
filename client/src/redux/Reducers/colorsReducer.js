@@ -1,4 +1,4 @@
-import { ACTIVATE } from './types';
+import { ACTIVATE } from '../types/types';
 
 const initialState = {
   colors:

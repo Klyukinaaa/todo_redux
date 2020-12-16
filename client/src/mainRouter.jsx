@@ -8,7 +8,7 @@ import AuthRouter from './routes/authRouter';
 import PrivateRoute from './routes/secureRoutes';
 import Header from './components/Header';
 import HomeRoute from './routes/homeRouter';
-import { login } from './redux/actions';
+import { login } from './redux/actions/actions';
 
 function MainRouter() {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import authReducer from './authReducer';
-import colorsReducer from './colorsReducer';
-import itemsReducer from './itemsReducer';
+import authReducer from './Reducers/authReducer';
+import colorsReducer from './Reducers/colorsReducer';
+import itemsReducer from './Reducers/itemsReducer';
 
 const rootReducer = combineReducers({ // набор reducers нашего приложения
   auth: authReducer,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { activate } from '../../redux/actions';
+import { activate } from '../../redux/actions/actions';
 import './styles.css';
 
 function ItemColor(props) {

@@ -1,6 +1,6 @@
 import {
-  ADD_ITEMS, CREATE_ITEM, CHECKED_ITEM, DELETED_ITEM, UPDATE_ITEM,
-} from './types';
+  INITIALIZE_ITEMS, CREATE_ITEM, CHECK_ITEM, DELETE_ITEM, UPDATE_ITEM,
+} from '../types/types';
 
 const initialState = {
   items: [],
@@ -8,11 +8,11 @@ const initialState = {
 
 const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_ITEMS:
+    case INITIALIZE_ITEMS:
       return { ...state, items: action.payload };
     case CREATE_ITEM:
       return { ...state, items: [...state.items, action.payload] };
-    case CHECKED_ITEM: {
+    case CHECK_ITEM: {
       const { id } = action.payload;
       const newItems = [...state.items];
       const index = newItems.findIndex((item) => item.id === id);
@@ -23,7 +23,7 @@ const itemsReducer = (state = initialState, action) => {
       };
       return { ...state, items: newItems };
     }
-    case DELETED_ITEM: {
+    case DELETE_ITEM: {
       const { id } = action.payload;
       const newItems = state.items.filter((item) => item.id !== id);
       return { ...state, items: newItems };

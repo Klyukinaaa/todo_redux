@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { signOut } from '../../redux/actions';
+import { signOut } from '../../redux/actions/actions';
 import './styles.css';
 
 function Header() {
