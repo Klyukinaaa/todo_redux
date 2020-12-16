@@ -1,10 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import useToken from '../redux/hook/useToken';
 
 const HomeRoute = () => {
-  const auth = useSelector((state) => state.auth.token);
-  if (auth != null) {
+  const { authToken } = useToken();
+  if (authToken != null) {
     return (
       <Redirect to="/items" />
     );

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import TodoItem from '../TodoItem';
+import useItems from '../../redux/hook/useItems';
 
 import './styles.css';
 
 function ItemsList(props) {
-  const items = useSelector((state) => state.items.items);
+  const { items } = useItems();
   const { handleCheck, deleteItem, handleText } = props;
   const listItems = items.map((item) => (
     <TodoItem

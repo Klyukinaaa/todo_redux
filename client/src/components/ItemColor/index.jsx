@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { activate } from '../../redux/actions/actions';
 import './styles.css';
+import useColors from '../../redux/hook/useColors';
 
 function ItemColor(props) {
-  const dispatch = useDispatch();
+  const { activateBtn } = useColors();
   const {
     item, selected, color,
   } = props;
   return (
-    <span role="presentation" className={`btn ${selected ? 'active' : ' '}`} onClick={() => dispatch(activate(color))}>
+    <span role="presentation" className={`btn ${selected ? 'active' : ' '}`} onClick={() => activateBtn(color)}>
       <input className="button" type="button" style={{ backgroundColor: item.color }} />
     </span>
   );

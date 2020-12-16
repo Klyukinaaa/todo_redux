@@ -1,16 +1,16 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import useToken from '../redux/hook/useToken';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const auth = useSelector((state) => state.auth.token);
+  const { authToken } = useToken();
   return (
     <Route
       {...rest}
       exact
       render={(props) => (
-        auth !== null ? <Component {...props} />
+        authToken !== null ? <Component {...props} />
           : <Redirect to="/auth/login" />
       )}
     />

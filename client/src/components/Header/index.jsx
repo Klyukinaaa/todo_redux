@@ -1,17 +1,15 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { signOut } from '../../redux/actions/actions';
 import './styles.css';
+import useToken from '../../redux/hook/useToken';
 
 function Header() {
   const history = useHistory();
-  const token = useSelector((state) => state.auth.token);
-  const dispatch = useDispatch();
+  const { authToken, logOut } = useToken();
 
   function logout() {
     localStorage.removeItem('token');
-    dispatch(signOut());
+    logOut();
     history.push('/auth/login');
   }
 
@@ -38,7 +36,7 @@ function Header() {
     </div>
   );
 
-  return token !== null ? <HeaderForAuthenticated /> : <AuthHeader />;
+  return authToken !== null ? <HeaderForAuthenticated /> : <AuthHeader />;
 }
 
 export default Header;

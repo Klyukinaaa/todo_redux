@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import useColors from '../../redux/hook/useColors';
 import ItemColor from '../ItemColor';
 
 import './styles.css';
 
 function ColorBtns() {
-  const colors = useSelector((state) => state.colors.colors);
+  const { colors } = useColors();
   const itemsColor = colors.map((item) => (
     <ItemColor
       selected={item.selected}

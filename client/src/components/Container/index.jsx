@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import ItemsList from '../ItemsList';
 import InputForm from '../InputForm';
 import ItemsService from '../../services/ItemsService';
 import NotificationService from '../../screens/service';
 import useItems from '../../redux/hook/useItems';
+import useColors from '../../redux/hook/useColors';
+import useToken from '../../redux/hook/useToken';
 
 function Container() {
-  const token = useSelector((state) => state.auth.token);
-  const colors = useSelector((state) => state.colors.colors);
-  const items = useSelector((state) => state.items.items);
+  const { authToken } = useToken();
+  const { colors } = useColors();
   const {
-    initializeItems, updateItem, checkItem, createTask, deleteTask,
+    initializeItems, updateItem, checkItem, createTask, deleteTask, items,
   } = useItems();
-  const itemsService = new ItemsService(token);
+  const itemsService = new ItemsService(authToken);
 
   const [currentItem, setCurrentItem] = useState({
     task: '',

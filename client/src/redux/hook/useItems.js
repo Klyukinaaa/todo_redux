@@ -1,18 +1,14 @@
+// вернёт мемоизированную версию колбэка,
+// который изменяется только,
+// если изменяются значения одной из зависимостей.
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   initialize, create, checked, update, deleted,
 } from '../actions/actions';
 
-const credentialsSelector = (state) => {
-  if (state.items) {
-    return { items: state.items };
-  }
-  return { items: [] };
-};
-
 export default function useItems() {
-  const { items } = useSelector(credentialsSelector);
+  const items = useSelector((state) => state.items.items);
   const dispatch = useDispatch();
 
   const initializeItems = useCallback((data) => dispatch(initialize(data)), [dispatch]);
@@ -20,6 +16,7 @@ export default function useItems() {
   const checkItem = useCallback((id) => dispatch(checked(id)), [dispatch]);
   const updateItem = useCallback((id, text) => dispatch(update(id, text)), [dispatch]);
   const deleteTask = useCallback((id) => dispatch(deleted(id)), [dispatch]);
+
   return {
     createTask,
     initializeItems,
