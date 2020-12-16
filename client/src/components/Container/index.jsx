@@ -4,7 +4,9 @@ import ItemsList from '../ItemsList';
 import InputForm from '../InputForm';
 import ItemsService from '../../services/ItemsService';
 import NotificationService from '../../screens/service';
-import { addData, checked, create } from '../../redux/actions';
+import {
+  addData, checked, create, deleted, update,
+} from '../../redux/actions';
 
 function Container() {
   const token = useSelector((state) => state.auth.token);
@@ -54,8 +56,8 @@ function Container() {
 
   async function handleCheck(id) {
     try {
+      dispatch(checked(id));
       const item = items.find((el) => el.id === id);
-      dispatch(checked(item));
       await itemsService.patchItem(id, item);
     } catch (e) {
       const message = 'Not Found';
@@ -65,28 +67,25 @@ function Container() {
 
   async function handleText(id, event) {
     try {
+      const text = event.target.value;
+      dispatch(update(id, text));
       const item = items.find((el) => el.id === id);
-      if (item) {
-        item.task = event.target.value;
-      }
       await itemsService.patchItem(id, item);
-      // setItems([...items]);
+    } catch (e) {
+      const message = 'Not Found';
+      NotificationService.error(message);
+    }
+  }
+
+  async function deleteItem(id) {
+    try {
+      await itemsService.deleteItem(id);
+      dispatch(deleted(id));
     } catch (e) {
       const message = 'Not Found ';
       NotificationService.error(message);
     }
   }
-
-  // async function deleteItem(id) {
-  //   try {
-  //     await itemsService.deleteItem(id);
-  //     const newItems = items.filter((item) => item.id !== id);
-  //     // setItems(newItems);
-  //   } catch (e) {
-  //     const message = 'Not Found ';
-  //     NotificationService.error(message);
-  //   }
-  // }
 
   function handleTextInputChange(event) {
     setCurrentItem({
@@ -119,7 +118,7 @@ function Container() {
       <div id="container">
         <div className="page">
           <ItemsList
-            // deleteItem={deleteItem}
+            deleteItem={deleteItem}
             handleCheck={handleCheck}
             items={items}
             handleText={handleText}

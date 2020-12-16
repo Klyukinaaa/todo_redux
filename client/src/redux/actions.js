@@ -1,5 +1,5 @@
 import {
-  LOGIN, LOGOUT, ACTIVATE, ADD_DATA, CREATE, CHECKED,
+  LOGIN, LOGOUT, ACTIVATE, ADD_ITEMS, CREATE_ITEM, CHECKED_ITEM, DELETED_ITEM, UPDATE_ITEM,
 } from './types';
 
 export function login(token) {
@@ -26,23 +26,41 @@ export function activate(color) {
 
 export function addData(data) {
   return {
-    type: ADD_DATA,
+    type: ADD_ITEMS,
     payload: data,
   };
 }
 
 export function create(data) {
   return {
-    type: CREATE,
+    type: CREATE_ITEM,
     payload: data,
   };
 }
 
-export function checked(item) {
+export function checked(id) {
   return {
-    type: CHECKED,
+    type: CHECKED_ITEM,
     payload: {
-      item,
+      id,
+    },
+  };
+}
+
+export function deleted(id) {
+  return {
+    type: DELETED_ITEM,
+    payload: {
+      id,
+    },
+  };
+}
+
+export function update(id, text) {
+  return {
+    type: UPDATE_ITEM,
+    payload: {
+      id, text,
     },
   };
 }
