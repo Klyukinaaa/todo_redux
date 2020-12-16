@@ -1,4 +1,6 @@
-import { LOGIN, LOGOUT, ACTIVE } from './types';
+import {
+  LOGIN, LOGOUT, ACTIVATE, ADD_DATA, CREATE, CHECKED,
+} from './types';
 
 export function login(token) {
   return {
@@ -15,9 +17,29 @@ export function signOut() {
 
 export function activate(color) {
   return {
-    type: ACTIVE,
+    type: ACTIVATE,
     payload: {
       color,
     },
+  };
+}
+
+export function addData(data) {
+  return {
+    type: ADD_DATA,
+    payload: data,
+  };
+}
+
+export function create(data) {
+  return {
+    type: CREATE,
+    payload: data,
+  };
+}
+
+export function checked() {
+  return {
+    type: CHECKED,
   };
 }

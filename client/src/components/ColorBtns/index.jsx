@@ -5,7 +5,7 @@ import ItemColor from '../ItemColor';
 import './styles.css';
 
 function ColorBtns() {
-  const colors = useSelector((state) => state.items.colors);
+  const colors = useSelector((state) => state.colors.colors);
   const itemsColor = colors.map((item) => (
     <ItemColor
       selected={item.selected}

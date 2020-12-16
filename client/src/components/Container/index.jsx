@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ItemsList from '../ItemsList';
 import InputForm from '../InputForm';
 import ItemsService from '../../services/ItemsService';
 import NotificationService from '../../screens/service';
+import { addData, create, checked } from '../../redux/actions';
 
 function Container() {
   const token = useSelector((state) => state.auth.token);
+  const colors = useSelector((state) => state.colors.colors);
+  const dispatch = useDispatch();
   const itemsService = new ItemsService(token);
-  const colors = useSelector((state) => state.items.colors);
   const [items, setItems] = useState([]);
 
   const [currentItem, setCurrentItem] = useState({
@@ -20,10 +22,10 @@ function Container() {
   useEffect(() => {
     async function requestItems() {
       try {
-        const tasks = await itemsService.getItems();
-        setItems(tasks.data);
+        const data = await itemsService.getItems();
+        dispatch(addData(data.data));
       } catch (e) {
-        const message = 'Not Found ';
+        const message = 'Not Found';
         NotificationService.error(message);
       }
     }
@@ -43,9 +45,9 @@ function Container() {
         color: getItemsColor(),
       };
       const data = await itemsService.createItem(item);
-      setItems([...items, data.data]);
+      dispatch(create(data.data));
     } catch (e) {
-      const message = 'Not Found ';
+      const message = 'Not Found';
       NotificationService.error(message);
     }
   }
@@ -57,7 +59,8 @@ function Container() {
         item.completed = !item.completed;
       }
       await itemsService.patchItem(id, item);
-      setItems([...items]);
+      dispatch(checked());
+      // setItems([...items]);
     } catch (e) {
       const message = 'Not Found ';
       NotificationService.error(message);

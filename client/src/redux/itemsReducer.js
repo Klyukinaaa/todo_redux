@@ -1,52 +1,19 @@
-import { ACTIVE } from './types';
+import { ADD_DATA, CREATE, CHECKED } from './types';
 
 const initialState = {
-  colors:
-    [
-      {
-        color: '#ef666c',
-        selected: false,
-      },
-      {
-        color: '#f171a2',
-        selected: false,
-      },
-      {
-        color: '#8f6ac8',
-        selected: false,
-      },
-      {
-        color: '#5eb1f3',
-        selected: false,
-      },
-      {
-        color: '#68d8e3',
-        selected: false,
-      },
-      {
-        color: '#fde087',
-        selected: false,
-      },
-    ],
+  items: [],
 };
 
-const colorsReducer = (state = initialState, action) => {
+const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTIVE: {
-      const { color } = action.payload;
-      return {
-        ...state,
-        colors: state.colors.map((item) => {
-          const newItem = { ...item };
-          if (item.color === color) {
-            newItem.selected = !newItem.selected;
-          } else newItem.selected = item.color === color;
-          return newItem;
-        }),
-      };
-    }
+    case ADD_DATA:
+      return { ...state, items: action.payload };
+    case CREATE:
+      return { ...state, items: [...state.items, action.payload] };
+    case CHECKED:
+      return { ...state, items: [...state.items] };
     default: return state;
   }
 };
 
-export default colorsReducer;
+export default itemsReducer;
