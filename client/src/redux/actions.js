@@ -38,8 +38,11 @@ export function create(data) {
   };
 }
 
-export function checked() {
+export function checked(item) {
   return {
     type: CHECKED,
+    payload: {
+      item,
+    },
   };
 }

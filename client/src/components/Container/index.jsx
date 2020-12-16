@@ -4,14 +4,14 @@ import ItemsList from '../ItemsList';
 import InputForm from '../InputForm';
 import ItemsService from '../../services/ItemsService';
 import NotificationService from '../../screens/service';
-import { addData, create, checked } from '../../redux/actions';
+import { addData, checked, create } from '../../redux/actions';
 
 function Container() {
   const token = useSelector((state) => state.auth.token);
   const colors = useSelector((state) => state.colors.colors);
+  const items = useSelector((state) => state.items.items);
   const dispatch = useDispatch();
   const itemsService = new ItemsService(token);
-  const [items, setItems] = useState([]);
 
   const [currentItem, setCurrentItem] = useState({
     task: '',
@@ -55,14 +55,10 @@ function Container() {
   async function handleCheck(id) {
     try {
       const item = items.find((el) => el.id === id);
-      if (item) {
-        item.completed = !item.completed;
-      }
+      dispatch(checked(item));
       await itemsService.patchItem(id, item);
-      dispatch(checked());
-      // setItems([...items]);
     } catch (e) {
-      const message = 'Not Found ';
+      const message = 'Not Found';
       NotificationService.error(message);
     }
   }
@@ -74,23 +70,23 @@ function Container() {
         item.task = event.target.value;
       }
       await itemsService.patchItem(id, item);
-      setItems([...items]);
+      // setItems([...items]);
     } catch (e) {
       const message = 'Not Found ';
       NotificationService.error(message);
     }
   }
 
-  async function deleteItem(id) {
-    try {
-      await itemsService.deleteItem(id);
-      const newItems = items.filter((item) => item.id !== id);
-      setItems(newItems);
-    } catch (e) {
-      const message = 'Not Found ';
-      NotificationService.error(message);
-    }
-  }
+  // async function deleteItem(id) {
+  //   try {
+  //     await itemsService.deleteItem(id);
+  //     const newItems = items.filter((item) => item.id !== id);
+  //     // setItems(newItems);
+  //   } catch (e) {
+  //     const message = 'Not Found ';
+  //     NotificationService.error(message);
+  //   }
+  // }
 
   function handleTextInputChange(event) {
     setCurrentItem({
@@ -123,7 +119,7 @@ function Container() {
       <div id="container">
         <div className="page">
           <ItemsList
-            deleteItem={deleteItem}
+            // deleteItem={deleteItem}
             handleCheck={handleCheck}
             items={items}
             handleText={handleText}

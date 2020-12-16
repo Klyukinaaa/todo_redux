@@ -10,8 +10,13 @@ const itemsReducer = (state = initialState, action) => {
       return { ...state, items: action.payload };
     case CREATE:
       return { ...state, items: [...state.items, action.payload] };
-    case CHECKED:
-      return { ...state, items: [...state.items] };
+    case CHECKED: {
+      const { item } = action.payload;
+      if (item) {
+        item.completed = !item.completed;
+      }
+      return { items: [...state.items] };
+    }
     default: return state;
   }
 };
