@@ -11,7 +11,7 @@ function Container() {
   const { authToken } = useToken();
   const { colors } = useColors();
   const {
-    initializeItems, updateItem, checkItem, createTask, deleteTask, items,
+    updateItem, checkItem, createTask, deleteTask, items, loadItems,
   } = useItems();
   const itemsService = new ItemsService(authToken);
 
@@ -22,16 +22,7 @@ function Container() {
   });
 
   useEffect(() => {
-    async function requestItems() {
-      try {
-        const data = await itemsService.getItems();
-        initializeItems(data.data);
-      } catch (e) {
-        const message = 'Not Found';
-        NotificationService.error(message);
-      }
-    }
-    requestItems();
+    loadItems();
   }, []);
 
   function getItemsColor() {

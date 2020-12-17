@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
+import useToken from '../redux/hook/useToken';
 
 function AuthRouter({ match }) {
-  const auth = useSelector((state) => state.auth.auth);
-  if (auth === null) {
+  const { authToken } = useToken();
+  if (authToken !== null) {
     return <Redirect to="/items" />;
   }
   return (

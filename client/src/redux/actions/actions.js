@@ -1,5 +1,5 @@
 import {
-  LOGIN, LOGOUT, ACTIVATE, INITIALIZE_ITEMS, CREATE_ITEM, CHECK_ITEM, DELETE_ITEM, UPDATE_ITEM,
+  LOGIN, LOGOUT, ACTIVATE, INITIALIZE_ITEMS, CREATE_ITEM, CHECK_ITEM, DELETE_ITEM, UPDATE_ITEM, LOAD_DATA,
 } from '../types/types';
 
 export function login(token) {
@@ -28,6 +28,12 @@ export function initialize(data) {
   return {
     type: INITIALIZE_ITEMS,
     payload: data,
+  };
+}
+
+export function loadData() {
+  return {
+    type: LOAD_DATA,
   };
 }
 
