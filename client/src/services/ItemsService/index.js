@@ -36,10 +36,10 @@ class ItemsService {
     });
   }
 
-  getItems() {
+  static getItems(token) {
     return axios.get('/items/', {
       headers: {
-        Authorization: `Bearer ${this.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   }
