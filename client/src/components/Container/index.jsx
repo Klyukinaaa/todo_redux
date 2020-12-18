@@ -68,14 +68,8 @@ function Container() {
     }
   }
 
-  async function deleteItem(id) {
-    try {
-      await itemsService.deleteItem(id);
-      deleteTask(id);
-    } catch (e) {
-      const message = 'Not Found ';
-      NotificationService.error(message);
-    }
+  function deleteItem(id) {
+    deleteTask(id);
   }
 
   function handleTextInputChange(event) {

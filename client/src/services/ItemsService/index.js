@@ -28,10 +28,10 @@ class ItemsService {
     });
   }
 
-  deleteItem(id) {
+  static deleteItem(token, id) {
     return axios.delete(`/items/${id}`, {
       headers: {
-        Authorization: `Bearer ${this.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   }
