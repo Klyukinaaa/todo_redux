@@ -1,10 +1,11 @@
 import {
-  ASYNC_DELETE_TASK, ASYNC_LOAD_DATA, ASYNC_CREATE_TASK, ASYNC_CHECK_TASK, ASYNC_UPDATE_TASK,
+  ASYNC_DELETE_TASK, ASYNC_LOAD_DATA_REQ, ASYNC_CREATE_TASK,
+  ASYNC_CHECK_TASK, ASYNC_UPDATE_TASK_REQ,
 } from '../types/types';
 
 export function loadData() {
   return {
-    type: ASYNC_LOAD_DATA,
+    type: ASYNC_LOAD_DATA_REQ,
   };
 }
 
@@ -31,7 +32,7 @@ export function asyncCheck(id) {
 
 export function asyncUpdate(id, text) {
   return {
-    type: ASYNC_UPDATE_TASK,
+    type: ASYNC_UPDATE_TASK_REQ,
     payload: {
       id, text,
     },

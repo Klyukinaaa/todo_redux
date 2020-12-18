@@ -13,10 +13,12 @@
     "font-awesome": "^4.7.0",
     "hbs": "^4.1.1",
     "jsonwebtoken": "^8.5.1",
+    "loaders.css": "^0.1.2",
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "pg": "^8.5.1",
+    "react-loaders": "^3.0.1",
     "sequelize": "^6.3.5"
   },
   "main": "app.js",

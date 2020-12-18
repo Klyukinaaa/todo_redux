@@ -1,13 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import TodoItem from '../TodoItem';
 import useItems from '../../redux/hook/useItems';
+import NotificationService from '../../screens/service';
 
 import './styles.css';
 
 function ItemsList(props) {
-  const { items } = useItems();
+  const { items, error, loading } = useItems();
   const { handleCheck, deleteItem, handleText } = props;
+
+  if (error) {
+    NotificationService.error(error.message);
+  }
+
+  if (loading) {
+    return (
+      <div className="lds-spinner">
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+      </div>
+    );
+  }
+
   const listItems = items.map((item) => (
     <TodoItem
       handleText={handleText}

@@ -1,6 +1,6 @@
 import {
-  LOGIN, LOGOUT, ACTIVATE, INITIALIZE_ITEMS, CREATE_ITEM, CHECK_ITEM,
-  DELETE_ITEM, UPDATE_ITEM,
+  LOGIN, LOGOUT, ACTIVATE, ASYNC_LOAD_DATA_SUC, CREATE_ITEM, CHECK_ITEM,
+  DELETE_ITEM, ASYNC_UPDATE_TASK_SUC,
 } from '../types/types';
 
 export function login(token) {
@@ -27,7 +27,7 @@ export function activate(color) {
 
 export function initialize(data) {
   return {
-    type: INITIALIZE_ITEMS,
+    type: ASYNC_LOAD_DATA_SUC,
     payload: data,
   };
 }
@@ -59,7 +59,7 @@ export function deleted(id) {
 
 export function update(id, text) {
   return {
-    type: UPDATE_ITEM,
+    type: ASYNC_UPDATE_TASK_SUC,
     payload: {
       id, text,
     },

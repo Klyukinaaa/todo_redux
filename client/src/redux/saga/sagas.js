@@ -2,11 +2,12 @@ import {
   takeEvery, put, call, select,
 } from 'redux-saga/effects';
 import {
-  ASYNC_LOAD_DATA, ASYNC_DELETE_TASK, ASYNC_CREATE_TASK, ASYNC_CHECK_TASK, ASYNC_UPDATE_TASK,
+  ASYNC_LOAD_DATA_REQ, ASYNC_LOAD_DATA_ERR, ASYNC_DELETE_TASK, ASYNC_CREATE_TASK,
+  ASYNC_CHECK_TASK, ASYNC_UPDATE_TASK_REQ,
 } from '../types/types';
 import {
   initialize, deleted, create, check, update,
-} from '../actions/actions';
+} from '../actions/sucActions';
 import NotificationService from '../../screens/service';
 import ItemsService from '../../services/ItemsService';
 
@@ -16,8 +17,14 @@ function* workerLoadData() {
     const data = yield call(ItemsService.getItems, token);
     yield put(initialize(data.data));
   } catch (e) {
-    const message = 'Not Found';
-    NotificationService.error(message);
+    const message = e.response.data;
+    const code = e.response.status;
+    yield put({
+      type: ASYNC_LOAD_DATA_ERR,
+      payload: {
+        message, code,
+      },
+    });
   }
 }
 
@@ -61,22 +68,24 @@ function* workerCheckTask(action) {
 function* workerUpdateTask(action) {
   try {
     const token = yield select((state) => state.auth.token);
-    const { id } = action.payload;
-    const { text } = action.payload;
     const items = yield select((state) => state.items.items);
+    const { id, text } = action.payload;
     const item = items.find((el) => el.id === id);
-    yield put(update(id, text));
     yield call(ItemsService.patchItem, token, id, item);
+    yield put(update(id, text));
   } catch (e) {
     const message = 'Not Found';
     NotificationService.error(message);
+    yield put({
+      type: ASYNC_LOAD_DATA_ERR,
+    });
   }
 }
 
 export default function* watchLoadData() { // за какими actions следим и как будем реагировать
-  yield takeEvery(ASYNC_LOAD_DATA, workerLoadData);
+  yield takeEvery(ASYNC_LOAD_DATA_REQ, workerLoadData);
   yield takeEvery(ASYNC_DELETE_TASK, workerDeleteTask);
   yield takeEvery(ASYNC_CREATE_TASK, workerCreateTask);
   yield takeEvery(ASYNC_CHECK_TASK, workerCheckTask);
-  yield takeEvery(ASYNC_UPDATE_TASK, workerUpdateTask);
+  yield takeEvery(ASYNC_UPDATE_TASK_REQ, workerUpdateTask);
 }

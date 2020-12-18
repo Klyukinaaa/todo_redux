@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { activate } from '../actions/actions';
+import { activate } from '../actions/sucActions';
 
 export default function useColors() {
   const colors = useSelector((state) => state.colors.colors);

@@ -5,10 +5,12 @@ import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   loadData, asyncDelete, asyncCreate, asyncCheck, asyncUpdate,
-} from '../actions/asyncActions';
+} from '../actions/reqActions';
 
 export default function useItems() {
   const items = useSelector((state) => state.items.items);
+  const error = useSelector((state) => state.items.error);
+  const loading = useSelector((state) => state.items.loading);
   const dispatch = useDispatch();
 
   const loadItems = useCallback(() => dispatch(loadData()), [dispatch]);
@@ -24,5 +26,7 @@ export default function useItems() {
     updateItem,
     deleteTask,
     loadItems,
+    error,
+    loading,
   };
 }
