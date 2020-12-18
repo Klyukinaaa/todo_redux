@@ -1,10 +1,6 @@
 import axios from 'axios';
 
 class ItemsService {
-  constructor(token) {
-    this.token = token;
-  }
-
   static createItem(token, item) {
     return axios.post('/items/', {
       task: item.task,
@@ -17,13 +13,13 @@ class ItemsService {
     });
   }
 
-  patchItem(id, item) {
+  static patchItem(token, id, item) {
     return axios.patch(`/items/${id}`, {
       task: item.task,
       completed: item.completed,
     }, {
       headers: {
-        Authorization: `Bearer ${this.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   }

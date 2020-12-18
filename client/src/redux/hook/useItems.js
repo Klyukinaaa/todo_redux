@@ -3,8 +3,10 @@
 // если изменяются значения одной из зависимостей.
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { checked, update } from '../actions/actions';
-import { loadData, asyncDelete, asyncCreate } from '../actions/asyncActions';
+import { update } from '../actions/actions';
+import {
+  loadData, asyncDelete, asyncCreate, asyncCheck,
+} from '../actions/asyncActions';
 
 export default function useItems() {
   const items = useSelector((state) => state.items.items);
@@ -12,7 +14,7 @@ export default function useItems() {
 
   const loadItems = useCallback(() => dispatch(loadData()), [dispatch]);
   const createTask = useCallback((data) => dispatch(asyncCreate(data)), [dispatch]);
-  const checkItem = useCallback((id) => dispatch(checked(id)), [dispatch]);
+  const checkItem = useCallback((id) => dispatch(asyncCheck(id)), [dispatch]);
   const updateItem = useCallback((id, text) => dispatch(update(id, text)), [dispatch]);
   const deleteTask = useCallback((id) => dispatch(asyncDelete(id)), [dispatch]);
 

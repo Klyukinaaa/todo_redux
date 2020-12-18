@@ -39,7 +39,7 @@ export function create(data) {
   };
 }
 
-export function checked(id) {
+export function check(id) {
   return {
     type: CHECK_ITEM,
     payload: {

@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import ItemsList from '../ItemsList';
 import InputForm from '../InputForm';
-import ItemsService from '../../services/ItemsService';
 import NotificationService from '../../screens/service';
 import useItems from '../../redux/hook/useItems';
 import useColors from '../../redux/hook/useColors';
-import useToken from '../../redux/hook/useToken';
 
 function Container() {
-  const { authToken } = useToken();
   const { colors } = useColors();
   const {
-    updateItem, checkItem, createTask, deleteTask, items, loadItems,
+    checkItem, createTask, deleteTask, items, loadItems,
   } = useItems();
-  const itemsService = new ItemsService(authToken);
 
   const [currentItem, setCurrentItem] = useState({
     task: '',
@@ -39,28 +35,21 @@ function Container() {
     createTask(item);
   }
 
-  async function handleCheck(id) {
-    try {
-      checkItem(id);
-      const item = items.find((el) => el.id === id);
-      await itemsService.patchItem(id, item);
-    } catch (e) {
-      const message = 'Not Found';
-      NotificationService.error(message);
-    }
+  function handleCheck(id) {
+    checkItem(id);
   }
 
-  async function handleText(id, event) {
-    try {
-      const text = event.target.value;
-      updateItem(id, text);
-      const item = items.find((el) => el.id === id);
-      await itemsService.patchItem(id, item);
-    } catch (e) {
-      const message = 'Not Found';
-      NotificationService.error(message);
-    }
-  }
+  // async function handleText(id, event) {
+  //   try {
+  //     const text = event.target.value;
+  //     updateItem(id, text);
+  //     const item = items.find((el) => el.id === id);
+  //     await itemsService.patchItem(id, item);
+  //   } catch (e) {
+  //     const message = 'Not Found';
+  //     NotificationService.error(message);
+  //   }
+  // }
 
   function deleteItem(id) {
     deleteTask(id);
@@ -100,7 +89,7 @@ function Container() {
             deleteItem={deleteItem}
             handleCheck={handleCheck}
             items={items}
-            handleText={handleText}
+            // handleText={handleText}
           />
           <InputForm
             createItem={createItem}
