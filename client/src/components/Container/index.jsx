@@ -31,18 +31,12 @@ function Container() {
     return activeCheckbox ? activeCheckbox.color : randomColors;
   }
 
-  async function createItem() {
-    try {
-      const item = {
-        ...currentItem,
-        color: getItemsColor(),
-      };
-      const data = await itemsService.createItem(item);
-      createTask(data.data);
-    } catch (e) {
-      const message = 'Not Found';
-      NotificationService.error(message);
-    }
+  function createItem() {
+    const item = {
+      ...currentItem,
+      color: getItemsColor(),
+    };
+    createTask(item);
   }
 
   async function handleCheck(id) {

@@ -13,9 +13,9 @@ export function asyncDelete(id) {
   };
 }
 
-export function asyncCreate(id) {
+export function asyncCreate(item) {
   return {
     type: ASYNC_CREATE_TASK,
-    payload: id,
+    payload: item,
   };
 }

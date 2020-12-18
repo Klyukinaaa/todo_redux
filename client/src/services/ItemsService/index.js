@@ -5,14 +5,14 @@ class ItemsService {
     this.token = token;
   }
 
-  createItem(item) {
+  static createItem(token, item) {
     return axios.post('/items/', {
       task: item.task,
       completed: item.completed,
       color: item.color,
     }, {
       headers: {
-        Authorization: `Bearer ${this.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   }
