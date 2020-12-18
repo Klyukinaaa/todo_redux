@@ -2,10 +2,10 @@ import {
   takeEvery, put, call, select,
 } from 'redux-saga/effects';
 import {
-  ASYNC_LOAD_DATA, ASYNC_DELETE_TASK, ASYNC_CREATE_TASK, ASYNC_CHECK_TASK,
+  ASYNC_LOAD_DATA, ASYNC_DELETE_TASK, ASYNC_CREATE_TASK, ASYNC_CHECK_TASK, ASYNC_UPDATE_TASK,
 } from '../types/types';
 import {
-  initialize, deleted, create, check,
+  initialize, deleted, create, check, update,
 } from '../actions/actions';
 import NotificationService from '../../screens/service';
 import ItemsService from '../../services/ItemsService';
@@ -44,6 +44,7 @@ function* workerCreateTask(action) {
     NotificationService.error(message);
   }
 }
+
 function* workerCheckTask(action) {
   try {
     const token = yield select((state) => state.auth.token);
@@ -57,10 +58,25 @@ function* workerCheckTask(action) {
     NotificationService.error(message);
   }
 }
+function* workerUpdateTask(action) {
+  try {
+    const token = yield select((state) => state.auth.token);
+    const { id } = action.payload;
+    const { text } = action.payload;
+    const items = yield select((state) => state.items.items);
+    const item = items.find((el) => el.id === id);
+    yield put(update(id, text));
+    yield call(ItemsService.patchItem, token, id, item);
+  } catch (e) {
+    const message = 'Not Found';
+    NotificationService.error(message);
+  }
+}
 
 export default function* watchLoadData() { // за какими actions следим и как будем реагировать
   yield takeEvery(ASYNC_LOAD_DATA, workerLoadData);
   yield takeEvery(ASYNC_DELETE_TASK, workerDeleteTask);
   yield takeEvery(ASYNC_CREATE_TASK, workerCreateTask);
   yield takeEvery(ASYNC_CHECK_TASK, workerCheckTask);
+  yield takeEvery(ASYNC_UPDATE_TASK, workerUpdateTask);
 }

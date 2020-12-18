@@ -8,7 +8,7 @@ import useColors from '../../redux/hook/useColors';
 function Container() {
   const { colors } = useColors();
   const {
-    checkItem, createTask, deleteTask, items, loadItems,
+    checkItem, createTask, deleteTask, items, loadItems, updateItem,
   } = useItems();
 
   const [currentItem, setCurrentItem] = useState({
@@ -39,17 +39,10 @@ function Container() {
     checkItem(id);
   }
 
-  // async function handleText(id, event) {
-  //   try {
-  //     const text = event.target.value;
-  //     updateItem(id, text);
-  //     const item = items.find((el) => el.id === id);
-  //     await itemsService.patchItem(id, item);
-  //   } catch (e) {
-  //     const message = 'Not Found';
-  //     NotificationService.error(message);
-  //   }
-  // }
+  async function handleText(id, event) {
+    const text = event.target.value;
+    updateItem(id, text);
+  }
 
   function deleteItem(id) {
     deleteTask(id);
@@ -89,7 +82,7 @@ function Container() {
             deleteItem={deleteItem}
             handleCheck={handleCheck}
             items={items}
-            // handleText={handleText}
+            handleText={handleText}
           />
           <InputForm
             createItem={createItem}
