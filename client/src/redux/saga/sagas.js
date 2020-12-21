@@ -73,8 +73,8 @@ function* workerCheckTask(action) {
     const items = yield select((state) => state.items.items);
     const id = action.payload;
     const item = items.find((el) => el.id === id);
-    yield call(ItemsService.patchItem, token, id, item);
     yield put(check(id));
+    yield call(ItemsService.patchItem, token, id, item);
   } catch (e) {
     const message = e.response.data;
     const code = e.response.status;

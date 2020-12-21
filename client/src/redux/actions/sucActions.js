@@ -1,6 +1,6 @@
 import {
-  LOGIN, LOGOUT, ACTIVATE, ASYNC_LOAD_DATA_SUC, ASYNC_CREATE_TASK_SUC, CHECK_ITEM,
-  ASYNC_DELETE_TASK_SUC, ASYNC_UPDATE_TASK_SUC,
+  LOGIN, LOGOUT, ACTIVATE, ASYNC_LOAD_DATA_SUC, ASYNC_CREATE_TASK_SUC,
+  ASYNC_DELETE_TASK_SUC, ASYNC_UPDATE_TASK_SUC, ASYNC_CHECK_TASK_SUC,
 } from '../types/types';
 
 export function login(token) {
@@ -41,7 +41,7 @@ export function create(data) {
 
 export function check(id) {
   return {
-    type: CHECK_ITEM,
+    type: ASYNC_CHECK_TASK_SUC,
     payload: {
       id,
     },
