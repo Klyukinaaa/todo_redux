@@ -6,12 +6,11 @@ import {
   ASYNC_DELETE_TASK_REQ, ASYNC_DELETE_TASK_ERR,
   ASYNC_CREATE_TASK_REQ, ASYNC_CREATE_TASK_ERR,
   ASYNC_CHECK_TASK_REQ, ASYNC_CHECK_TASK_ERR,
-  ASYNC_UPDATE_TASK_REQ,
+  ASYNC_UPDATE_TASK_REQ, ASYNC_UPDATE_TASK_ERR,
 } from '../types/types';
 import {
   initialize, deleted, create, check, update,
 } from '../actions/sucActions';
-import NotificationService from '../../screens/service';
 import ItemsService from '../../services/ItemsService';
 
 function* workerLoadData() {
@@ -93,13 +92,16 @@ function* workerUpdateTask(action) {
     const items = yield select((state) => state.items.items);
     const { id, text } = action.payload;
     const item = items.find((el) => el.id === id);
-    yield call(ItemsService.patchItem, token, id, item);
     yield put(update(id, text));
+    yield call(ItemsService.patchItem, token, id, item);
   } catch (e) {
-    const message = 'Not Found';
-    NotificationService.error(message);
+    const message = e.response.data;
+    const code = e.response.status;
     yield put({
-      type: ASYNC_LOAD_DATA_ERR,
+      type: ASYNC_UPDATE_TASK_ERR,
+      payload: {
+        message, code,
+      },
     });
   }
 }

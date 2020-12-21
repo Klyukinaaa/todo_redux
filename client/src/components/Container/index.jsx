@@ -39,7 +39,7 @@ function Container() {
     checkItem(id);
   }
 
-  async function handleText(id, event) {
+  function handleText(id, event) {
     const text = event.target.value;
     updateItem(id, text);
   }

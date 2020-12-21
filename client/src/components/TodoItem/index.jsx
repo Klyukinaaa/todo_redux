@@ -29,6 +29,7 @@ function TodoItem(props) {
   }, [showEdit]);
 
   const itemStyle = check ? styleCheck : style;
+
   return (
     <li>
       <label htmlFor={id} className="checkbox" style={itemStyle}>
@@ -36,24 +37,26 @@ function TodoItem(props) {
       </label>
       <div style={itemStyle} className="task">
         {
-            showEdit
-              ? (
-                <span>
-                  <input
-                    style={itemStyle}
-                    onBlur={
-                           (event) => handleText(id, event)
-                               && setShowEdit(false)
-                         }
-                    defaultValue={text}
-                    ref={textInput}
-                    type="text"
-                    className="input_patch"
-                  />
-                </span>
-              )
-              : <span id="span_patch" onDoubleClick={() => setShowEdit(true)}>{text}</span>
-          }
+          showEdit
+            ? (
+              <span>
+                <input
+                  style={itemStyle}
+                  onBlur={
+                        (event) => {
+                          handleText(id, event);
+                          setShowEdit(false);
+                        }
+                  }
+                  defaultValue={text}
+                  ref={textInput}
+                  type="text"
+                  className="input_patch"
+                />
+              </span>
+            )
+            : <span id="span_patch" onDoubleClick={() => setShowEdit(true)}>{text}</span>
+        }
         <FontAwesomeIcon className="btn_delete" onClick={() => deleteItem(id)} icon={faTrash} />
       </div>
     </li>

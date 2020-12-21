@@ -3,7 +3,7 @@ import {
   ASYNC_CREATE_TASK_REQ, ASYNC_CREATE_TASK_ERR, ASYNC_CREATE_TASK_SUC,
   ASYNC_DELETE_TASK_REQ, ASYNC_DELETE_TASK_ERR, ASYNC_DELETE_TASK_SUC,
   ASYNC_CHECK_TASK_SUC, ASYNC_CHECK_TASK_ERR, ASYNC_CHECK_TASK_REQ,
-  ASYNC_UPDATE_TASK_SUC,
+  ASYNC_UPDATE_TASK_SUC, ASYNC_UPDATE_TASK_ERR, ASYNC_UPDATE_TASK_REQ,
 } from '../types/types';
 
 const initialState = {
@@ -90,6 +90,16 @@ const itemsReducer = (state = initialState, action) => {
         ...state, items: newItems, loading: false, error: {},
       };
     }
+    case ASYNC_UPDATE_TASK_ERR: {
+      const { code, message } = action.payload;
+      return {
+        ...state, loading: false, error: { message, code },
+      };
+    }
+    case ASYNC_UPDATE_TASK_REQ:
+      return {
+        ...state, loading: true, error: {},
+      };
     default: return state;
   }
 };
