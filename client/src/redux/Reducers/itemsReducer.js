@@ -1,6 +1,9 @@
 import {
-  ASYNC_LOAD_DATA_SUC, CREATE_ITEM, CHECK_ITEM, DELETE_ITEM, ASYNC_LOAD_DATA_REQ,
-  ASYNC_LOAD_DATA_ERR, ASYNC_UPDATE_TASK_SUC,
+  ASYNC_LOAD_DATA_SUC, ASYNC_LOAD_DATA_REQ, ASYNC_LOAD_DATA_ERR,
+  ASYNC_CREATE_TASK_REQ, ASYNC_CREATE_TASK_ERR, ASYNC_CREATE_TASK_SUC,
+  ASYNC_DELETE_TASK_REQ, ASYNC_DELETE_TASK_ERR, ASYNC_DELETE_TASK_SUC,
+  ASYNC_CHECK_TASK_SUC,
+  ASYNC_UPDATE_TASK_SUC,
 } from '../types/types';
 
 const initialState = {
@@ -12,7 +15,7 @@ const initialState = {
 const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ASYNC_LOAD_DATA_REQ: {
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: {} };
     }
     case ASYNC_LOAD_DATA_ERR: {
       const { code, message } = action.payload;
@@ -22,9 +25,21 @@ const itemsReducer = (state = initialState, action) => {
       return {
         ...state, items: action.payload, loading: false, error: {},
       };
-    case CREATE_ITEM:
-      return { ...state, items: [...state.items, action.payload] };
-    case CHECK_ITEM: {
+    case ASYNC_CREATE_TASK_SUC:
+      return {
+        ...state, items: [...state.items, action.payload], loading: false, error: {},
+      };
+    case ASYNC_CREATE_TASK_ERR: {
+      const { code, message } = action.payload;
+      return {
+        ...state, loading: false, error: { message, code },
+      };
+    }
+    case ASYNC_CREATE_TASK_REQ:
+      return {
+        ...state, loading: true, error: {},
+      };
+    case ASYNC_CHECK_TASK_SUC: {
       const { id } = action.payload;
       const newItems = [...state.items];
       const index = newItems.findIndex((item) => item.id === id);
@@ -33,13 +48,37 @@ const itemsReducer = (state = initialState, action) => {
         ...itemToChange,
         completed: itemToChange.completed = !itemToChange.completed,
       };
-      return { ...state, items: newItems };
+      return {
+        ...state, items: newItems, loading: false, error: {},
+      };
     }
-    case DELETE_ITEM: {
+    // case ASYNC_CHECK_TASK_ERR: {
+    //   const { code, message } = action.payload;
+    //   return {
+    //     ...state, loading: false, error: { message, code },
+    //   };
+    // }
+    // case ASYNC_CHECK_TASK_REQ:
+    //   return {
+    //     ...state, loading: true, error: {},
+    //   };
+    case ASYNC_DELETE_TASK_SUC: {
       const { id } = action.payload;
       const newItems = state.items.filter((item) => item.id !== id);
-      return { ...state, items: newItems };
+      return {
+        ...state, items: newItems, loading: false, error: {},
+      };
     }
+    case ASYNC_DELETE_TASK_ERR: {
+      const { code, message } = action.payload;
+      return {
+        ...state, loading: false, error: { message, code },
+      };
+    }
+    case ASYNC_DELETE_TASK_REQ:
+      return {
+        ...state, loading: true, error: {},
+      };
     case ASYNC_UPDATE_TASK_SUC: {
       const { id, text } = action.payload;
       const newItems = [...state.items];

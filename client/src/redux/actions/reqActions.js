@@ -1,6 +1,6 @@
 import {
-  ASYNC_DELETE_TASK, ASYNC_LOAD_DATA_REQ, ASYNC_CREATE_TASK,
-  ASYNC_CHECK_TASK, ASYNC_UPDATE_TASK_REQ,
+  ASYNC_DELETE_TASK_REQ, ASYNC_LOAD_DATA_REQ, ASYNC_CREATE_TASK_REQ,
+  ASYNC_CHECK_TASK_REQ, ASYNC_UPDATE_TASK_REQ,
 } from '../types/types';
 
 export function loadData() {
@@ -11,21 +11,21 @@ export function loadData() {
 
 export function asyncDelete(id) {
   return {
-    type: ASYNC_DELETE_TASK,
+    type: ASYNC_DELETE_TASK_REQ,
     payload: id,
   };
 }
 
 export function asyncCreate(item) {
   return {
-    type: ASYNC_CREATE_TASK,
+    type: ASYNC_CREATE_TASK_REQ,
     payload: item,
   };
 }
 
 export function asyncCheck(id) {
   return {
-    type: ASYNC_CHECK_TASK,
+    type: ASYNC_CHECK_TASK_REQ,
     payload: id,
   };
 }

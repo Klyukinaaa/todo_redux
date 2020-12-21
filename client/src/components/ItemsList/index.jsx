@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TodoItem from '../TodoItem';
 import useItems from '../../redux/hook/useItems';
 import NotificationService from '../../screens/service';
+import Loader from '../ Loading';
 
 import './styles.css';
 
@@ -17,20 +18,7 @@ function ItemsList(props) {
 
   if (loading) {
     return (
-      <div className="lds-spinner">
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-      </div>
+      <Loader />
     );
   }
 

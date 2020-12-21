@@ -1,6 +1,6 @@
 import {
-  LOGIN, LOGOUT, ACTIVATE, ASYNC_LOAD_DATA_SUC, CREATE_ITEM, CHECK_ITEM,
-  DELETE_ITEM, ASYNC_UPDATE_TASK_SUC,
+  LOGIN, LOGOUT, ACTIVATE, ASYNC_LOAD_DATA_SUC, ASYNC_CREATE_TASK_SUC, CHECK_ITEM,
+  ASYNC_DELETE_TASK_SUC, ASYNC_UPDATE_TASK_SUC,
 } from '../types/types';
 
 export function login(token) {
@@ -34,7 +34,7 @@ export function initialize(data) {
 
 export function create(data) {
   return {
-    type: CREATE_ITEM,
+    type: ASYNC_CREATE_TASK_SUC,
     payload: data,
   };
 }
@@ -50,7 +50,7 @@ export function check(id) {
 
 export function deleted(id) {
   return {
-    type: DELETE_ITEM,
+    type: ASYNC_DELETE_TASK_SUC,
     payload: {
       id,
     },
