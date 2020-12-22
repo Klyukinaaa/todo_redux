@@ -10,10 +10,10 @@ import HomeRoute from './routes/homeRouter';
 import useToken from './redux/hook/useToken';
 
 function MainRouter() {
-  const { logIn } = useToken();
+  const { mainLogin } = useToken();
   useEffect(() => {
     const token = localStorage.getItem('token');
-    logIn(token);
+    mainLogin(token);
   }, []);
   return (
     <div>

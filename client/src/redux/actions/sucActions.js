@@ -1,18 +1,19 @@
 import {
-  LOGIN, LOGOUT, ASYNC_ACTIVATE_SUC, ASYNC_LOAD_DATA_SUC, ASYNC_CREATE_TASK_SUC,
-  ASYNC_DELETE_TASK_SUC, ASYNC_UPDATE_TASK_SUC, ASYNC_CHECK_TASK_SUC,
+  ASYNC_LOGIN_SUC, ASYNC_LOGOUT_SUC, ASYNC_ACTIVATE_SUC, ASYNC_LOAD_DATA_SUC,
+  ASYNC_CREATE_TASK_SUC, ASYNC_DELETE_TASK_SUC,
+  ASYNC_UPDATE_TASK_SUC, ASYNC_CHECK_TASK_SUC,
 } from '../types/types';
 
 export function login(token) {
   return {
-    type: LOGIN,
+    type: ASYNC_LOGIN_SUC,
     payload: token,
   };
 }
 
 export function signOut() {
   return {
-    type: LOGOUT,
+    type: ASYNC_LOGOUT_SUC,
   };
 }
 

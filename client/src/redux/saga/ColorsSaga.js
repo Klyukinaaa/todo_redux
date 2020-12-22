@@ -1,5 +1,4 @@
 import { takeEvery, put } from 'redux-saga/effects';
-
 import { ASYNC_ACTIVATE_REQ, ASYNC_ACTIVATE_ERR } from '../types/types';
 import { activate } from '../actions/sucActions';
 

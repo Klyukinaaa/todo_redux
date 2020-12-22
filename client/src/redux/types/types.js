@@ -1,5 +1,9 @@
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export const ASYNC_LOGIN_REQ = 'ASYNC_LOGIN_REQ';
+export const ASYNC_LOGIN_ERR = 'ASYNC_LOGIN_ERR';
+export const ASYNC_LOGIN_SUC = 'ASYNC_LOGIN_SUC';
+export const ASYNC_LOGOUT_REQ = 'ASYNC_LOGOUT_REQ';
+export const ASYNC_LOGOUT_ERR = 'ASYNC_LOGOUT_ERR';
+export const ASYNC_LOGOUT_SUC = 'ASYNC_LOGOUT_SUC';
 export const ASYNC_LOAD_DATA_REQ = 'ASYNC_LOAD_DATA_REQ';
 export const ASYNC_LOAD_DATA_ERR = 'ASYNC_LOAD_DATA_ERR';
 export const ASYNC_LOAD_DATA_SUC = 'ASYNC_LOAD_DATA_SUC';

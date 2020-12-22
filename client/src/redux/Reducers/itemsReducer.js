@@ -9,13 +9,13 @@ import {
 const initialState = {
   items: [],
   loading: false,
-  error: {},
+  error: null,
 };
 
 const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ASYNC_LOAD_DATA_REQ: {
-      return { ...state, loading: true, error: {} };
+      return { ...state, loading: true, error: null };
     }
     case ASYNC_LOAD_DATA_ERR: {
       const { code, message } = action.payload;
@@ -23,11 +23,11 @@ const itemsReducer = (state = initialState, action) => {
     }
     case ASYNC_LOAD_DATA_SUC:
       return {
-        ...state, items: action.payload, loading: false, error: {},
+        ...state, items: action.payload, loading: false, error: null,
       };
     case ASYNC_CREATE_TASK_SUC:
       return {
-        ...state, items: [...state.items, action.payload], loading: false, error: {},
+        ...state, items: [...state.items, action.payload], loading: false, error: null,
       };
     case ASYNC_CREATE_TASK_ERR: {
       const { code, message } = action.payload;
@@ -37,7 +37,7 @@ const itemsReducer = (state = initialState, action) => {
     }
     case ASYNC_CREATE_TASK_REQ:
       return {
-        ...state, loading: true, error: {},
+        ...state, loading: true, error: null,
       };
     case ASYNC_CHECK_TASK_SUC: {
       const { id } = action.payload;
@@ -49,7 +49,7 @@ const itemsReducer = (state = initialState, action) => {
         completed: itemToChange.completed = !itemToChange.completed,
       };
       return {
-        ...state, items: newItems, loading: false, error: {},
+        ...state, items: newItems, loading: false, error: null,
       };
     }
     case ASYNC_CHECK_TASK_ERR: {
@@ -66,7 +66,7 @@ const itemsReducer = (state = initialState, action) => {
       const { id } = action.payload;
       const newItems = state.items.filter((item) => item.id !== id);
       return {
-        ...state, items: newItems, loading: false, error: {},
+        ...state, items: newItems, loading: false, error: null,
       };
     }
     case ASYNC_DELETE_TASK_ERR: {
@@ -87,7 +87,7 @@ const itemsReducer = (state = initialState, action) => {
         newItem.task = text;
       }
       return {
-        ...state, items: newItems, loading: false, error: {},
+        ...state, items: newItems, loading: false, error: null,
       };
     }
     case ASYNC_UPDATE_TASK_ERR: {
@@ -98,7 +98,7 @@ const itemsReducer = (state = initialState, action) => {
     }
     case ASYNC_UPDATE_TASK_REQ:
       return {
-        ...state, loading: true, error: {},
+        ...state, loading: true, error: null,
       };
     default: return state;
   }

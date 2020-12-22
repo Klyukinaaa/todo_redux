@@ -2,7 +2,7 @@ import React from 'react';
 import useColors from '../../redux/hook/useColors';
 import ItemColor from '../ItemColor';
 import NotificationService from '../../screens/service';
-import Loader from '../ Loading';
+import Loader from '../Loading';
 
 import './styles.css';
 

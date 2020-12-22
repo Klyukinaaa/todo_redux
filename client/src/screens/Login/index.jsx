@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import AuthService from '../../services/AuthSerice';
-import NotificationService from '../service';
 import useToken from '../../redux/hook/useToken';
+import NotificationService from '../service';
 
 import './styles.css';
 
 function Login() {
   const history = useHistory();
-  const { logIn } = useToken();
+  const { logIn, error } = useToken();
+
+  if (error) {
+    NotificationService.error(error.message);
+  }
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,16 +25,9 @@ function Login() {
     setPassword(e.target.value);
   }
 
-  async function signIn() {
-    try {
-      const response = await AuthService.signIn(email, password);
-      const { token } = response.data;
-      logIn(token);
-      localStorage.setItem('token', token);
-      history.push('/items');
-    } catch (e) {
-      NotificationService.error(e.response.data.message);
-    }
+  function signIn() {
+    logIn(email, password);
+    history.push('/items');
   }
 
   return (
