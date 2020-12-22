@@ -8,9 +8,11 @@ import PrivateRoute from './routes/secureRoutes';
 import Header from './components/Header';
 import HomeRoute from './routes/homeRouter';
 import useToken from './redux/hook/useToken';
+import NotificationService from './screens/service';
 
 function MainRouter() {
   const { mainLogin } = useToken();
+  const { error } = useToken();
   useEffect(() => {
     const token = localStorage.getItem('token');
     console.log(token);
@@ -18,6 +20,11 @@ function MainRouter() {
       mainLogin(token);
     }
   }, []);
+
+  if (error) {
+    NotificationService.error(error.message);
+  }
+
   return (
     <div>
       <Header />

@@ -2,17 +2,12 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import useToken from '../../redux/hook/useToken';
-import NotificationService from '../service';
 
 import './styles.css';
 
 function Login() {
   const history = useHistory();
-  const { logIn, error } = useToken();
-
-  if (error) {
-    NotificationService.error(error.message);
-  }
+  const { logIn } = useToken();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

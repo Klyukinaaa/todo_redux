@@ -2,18 +2,17 @@ import React from 'react';
 import useColors from '../../redux/hook/useColors';
 import ItemColor from '../ItemColor';
 import NotificationService from '../../screens/service';
-import Loader from '../Loading';
 
 import './styles.css';
 
 function ColorBtns() {
-  const { colors, error, loading } = useColors();
+  const { colors, error } = useColors();
 
   if (error) {
     NotificationService.error(error.message);
   }
 
-  const itemsColor = loading ? <Loader /> : colors.map((item) => (
+  const itemsColor = colors.map((item) => (
     <ItemColor
       selected={item.selected}
       key={item.color}
