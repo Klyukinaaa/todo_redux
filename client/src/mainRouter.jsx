@@ -13,7 +13,10 @@ function MainRouter() {
   const { mainLogin } = useToken();
   useEffect(() => {
     const token = localStorage.getItem('token');
-    mainLogin(token);
+    console.log(token);
+    if (token) {
+      mainLogin(token);
+    }
   }, []);
   return (
     <div>

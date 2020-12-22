@@ -30,7 +30,7 @@ function* workerLogout() {
   try {
     yield put(signOut());
   } catch (e) {
-    const message = e.response.data;
+    const { message } = e.response.data;
     const code = e.response.status;
     yield put({
       type: ASYNC_LOGOUT_ERR,

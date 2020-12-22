@@ -32,7 +32,7 @@ const initialState = {
       },
     ],
   loading: false,
-  error: {},
+  error: null,
 };
 
 const colorsReducer = (state = initialState, action) => {
@@ -49,7 +49,7 @@ const colorsReducer = (state = initialState, action) => {
           return newItem;
         }),
         loading: false,
-        error: {},
+        error: null,
       };
     }
     case ASYNC_ACTIVATE_ERR: {
@@ -57,7 +57,7 @@ const colorsReducer = (state = initialState, action) => {
       return { ...state, loading: false, error: { message, code } };
     }
     case ASYNC_ACTIVATE_REQ: {
-      return { ...state, loading: true, error: {} };
+      return { ...state, loading: true, error: null };
     }
     default: return state;
   }

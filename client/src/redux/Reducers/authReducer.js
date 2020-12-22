@@ -18,7 +18,7 @@ const authReducer = (state = initialState, action) => {
     case ASYNC_LOGIN_SUC:
       return {
         token: action.payload,
-        loading: true,
+        loading: false,
         error: null,
       };
     case ASYNC_LOGIN_ERR: {
@@ -26,7 +26,7 @@ const authReducer = (state = initialState, action) => {
       return { ...state, loading: false, error: { message, code } };
     }
     case ASYNC_LOGIN_REQ: {
-      return { ...state, loading: false, error: null };
+      return { ...state, loading: true, error: null };
     }
     case ASYNC_LOGOUT_SUC:
       return {
