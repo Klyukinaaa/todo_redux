@@ -1,4 +1,7 @@
-import { ACTIVATE } from '../types/types';
+import {
+  ASYNC_ACTIVATE_SUC,
+  ASYNC_ACTIVATE_ERR, ASYNC_ACTIVATE_REQ,
+} from '../types/types';
 
 const initialState = {
   colors:
@@ -28,11 +31,13 @@ const initialState = {
         selected: false,
       },
     ],
+  loading: false,
+  error: {},
 };
 
 const colorsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTIVATE: {
+    case ASYNC_ACTIVATE_SUC: {
       const { color } = action.payload;
       return {
         ...state,
@@ -43,7 +48,16 @@ const colorsReducer = (state = initialState, action) => {
           } else newItem.selected = item.color === color;
           return newItem;
         }),
+        loading: false,
+        error: {},
       };
+    }
+    case ASYNC_ACTIVATE_ERR: {
+      const { code, message } = action.payload;
+      return { ...state, loading: false, error: { message, code } };
+    }
+    case ASYNC_ACTIVATE_REQ: {
+      return { ...state, loading: true, error: {} };
     }
     default: return state;
   }

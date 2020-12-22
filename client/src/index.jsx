@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import MainRouter from './mainRouter';
 import rootReducer from './redux/rootReducer';
-import watchLoadData from './redux/saga/sagas';
+import rootSaga from './redux/saga/rootSaga';
 
 import './index.css';
 
@@ -22,7 +22,7 @@ const store = createStore(
   ),
 );
 
-saga.run(watchLoadData);
+saga.run(rootSaga);
 
 const app = (
   <Provider store={store}>

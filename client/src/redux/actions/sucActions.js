@@ -1,5 +1,5 @@
 import {
-  LOGIN, LOGOUT, ACTIVATE, ASYNC_LOAD_DATA_SUC, ASYNC_CREATE_TASK_SUC,
+  LOGIN, LOGOUT, ASYNC_ACTIVATE_SUC, ASYNC_LOAD_DATA_SUC, ASYNC_CREATE_TASK_SUC,
   ASYNC_DELETE_TASK_SUC, ASYNC_UPDATE_TASK_SUC, ASYNC_CHECK_TASK_SUC,
 } from '../types/types';
 
@@ -18,7 +18,7 @@ export function signOut() {
 
 export function activate(color) {
   return {
-    type: ACTIVATE,
+    type: ASYNC_ACTIVATE_SUC,
     payload: {
       color,
     },

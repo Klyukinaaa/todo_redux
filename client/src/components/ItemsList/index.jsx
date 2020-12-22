@@ -16,13 +16,7 @@ function ItemsList(props) {
     NotificationService.error(error.message);
   }
 
-  if (loading) {
-    return (
-      <Loader />
-    );
-  }
-
-  const listItems = items.map((item) => (
+  const listItems = loading ? <Loader /> : items.map((item) => (
     <TodoItem
       handleText={handleText}
       key={item.id}
